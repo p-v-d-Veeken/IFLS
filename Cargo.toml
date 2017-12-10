@@ -1,0 +1,10 @@
+[package]
+authors = ["Pieter <pietervanderveeken@gmail.com>"]
+name = "log"
+version = "0.1.0"
+
+[dependencies]
+rust-crypto = "^0.2"
+base64 = "~0.6.0"
+clap = {version = "~2.27.1", features = ["yaml"]}
+time = "0.1.38"

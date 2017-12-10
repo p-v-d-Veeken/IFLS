@@ -1,0 +1,104 @@
+name: Immutable Forward Linked and Sealed Logging Utility
+version: "1.0"
+author: P. C. J. van der Veeken
+about: Creates, maintains, verifies and decrypts encrypted log files.
+subcommands:
+    - encrypt:
+        about: encrypt a log file.
+        args:
+            - INPUT:
+                help: The log file to be encrypted
+                value_name: FILE
+                required: true
+                index: 1
+            - secret:
+                short: s
+                long: secret
+                help: The initial secret with which the encrypted log file can be verified
+                takes_value: true
+                required: true
+                index: 2
+            - root:
+                short: r
+                long: root
+                help: The chain root from which to create the internal hash chain
+                takes_value: true
+                required: true
+                index: 3
+            - cipher_block_len:
+                short: cbl
+                long: cipher_block_len
+                help: Sets the block length of the ciphertext
+                takes_value: true
+            - key_entropy:
+                short: ke
+                long: key_entropy
+                help: "Specifies which key derivation algorithm to use. Accepted values: low, medium (default), high"
+                takes_value: true
+            - hmac_alg:
+                short: ha
+                long: hmac_alg
+                help: "Specifies which HMAC algorithm to use. Accepted values: SHA256 (default), SHA512"
+                takes_value: true
+
+    - decrypt:
+        about: decrypt an encrypted log file.
+        args:
+            - INPUT:
+                help: The encrypted log file to be decrypted
+                value_name: FILE
+                required: true
+                index: 1
+            - keys:
+                short: k
+                long: keys
+                value_name: FILE
+                help: The binary files containing the decryption keys
+                takes_value: true
+                required: true
+    - verify:
+        about: verify an encrypted log file.
+        args:
+            - INPUT:
+                help: The encrypted log file to be verified
+                value_name: FILE
+                required: true
+                index: 1
+            - keys:
+                short: k
+                long: keys
+                value_name: FILE
+                help: The binary files containing the signature keys
+                takes_value: true
+                required: true
+            - secret:
+                short: s
+                long: secret
+                help: The secret with which the encrypted log file can be verified
+                takes_value: true
+                required: true
+    - keygen:
+        about: "generate the specified number of keys from the supplied chain root and outputs them to their corresponding files"
+        args:
+            - INPUT:
+                help: the chain root
+                required: true
+                index: 1
+            - amount:
+                short: n
+                long: amount
+                value_name: AMOUNT
+                help: the amount of keys to generate
+                takes_value: true
+                required: true
+            - key_entropy:
+                short: ke
+                long: key_entropy
+                help: "Specifies which key derivation algorithm to use. Accepted values: low, medium (default), high"
+                takes_value: true
+            - type:
+                short: t
+                long: type
+                help: "which keys to generate. Accepted value: both (default), signature, encryption"
+    - benchmark:
+        about: benchmarks the various functionalities of the logger, verifier and interpreter for all possible combinations of key entropy and hmac size.
