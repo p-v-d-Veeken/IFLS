@@ -8,3 +8,5 @@ rust-crypto = "^0.2"
 base64 = "~0.6.0"
 clap = {version = "~2.27.1", features = ["yaml"]}
 time = "0.1.38"
+siphasher = "0.2.2"
+byteorder = "1.2.1"

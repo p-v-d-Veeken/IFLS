@@ -46,7 +46,7 @@ pub mod exec {
                     .filter(|res| res.is_err())
                     .fold(
                         String::from(""),
-                        |p, err| format!("{}\n{}", p, err.as_ref().unwrap_err())
+                        |p, err| format!("{}\n{}", p, err.as_ref().unwrap_err()),
                     )
             );
         }
@@ -84,7 +84,7 @@ pub mod exec {
                     .filter(|res| res.is_err())
                     .fold(
                         String::from(""),
-                        |p, err| format!("{}\n{}", p, err.as_ref().unwrap_err())
+                        |p, err| format!("{}\n{}", p, err.as_ref().unwrap_err()),
                     )
             );
         }
@@ -201,6 +201,11 @@ pub mod exec {
         verifier_benchmark::run()
             .iter()
             .for_each(|res| println!("{},{},{}", res.0, res.1, res.2));
+        
+        println!("PRF");
+        hash_benchmark::run()
+            .iter()
+            .for_each(|res| println!("{},{},{}", res.0, res.1, res.2));
     }
     
     fn parse_root(matches: &ArgMatches, arg_name: &str) -> Result<[u8; 64], String> {
@@ -245,11 +250,5 @@ pub mod exec {
         };
         
         Ok(Config::new(cipher_block_len, key_entropy, hmac_alg))
-    }
-    
-    #[cfg(test)]
-    mod tests {
-        #[test]
-        fn is_ok() {}
     }
 }
